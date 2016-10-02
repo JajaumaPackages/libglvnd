@@ -1,0 +1,13 @@
+diff -uNr libglvnd-0.2.999.orig/src/EGL/libeglmapping.c libglvnd-0.2.999/src/EGL/libeglmapping.c
+--- libglvnd-0.2.999.orig/src/EGL/libeglmapping.c	2016-10-02 17:53:44.907454763 +0300
++++ libglvnd-0.2.999/src/EGL/libeglmapping.c	2016-10-02 17:54:46.021010961 +0300
+@@ -63,7 +63,7 @@
+ {
+     struct glvnd_list *vendorList = __eglLoadVendors();
+     __EGLvendorInfo *vendor;
+-    __eglMustCastToProperFunctionPointerType addr;
++    __eglMustCastToProperFunctionPointerType addr = NULL;
+     int index;
+ 
+     __glvndPthreadFuncs.mutex_lock(&dispatchIndexMutex);
+Binary files libglvnd-0.2.999.orig/src/EGL/.libeglmapping.c.swp and libglvnd-0.2.999/src/EGL/.libeglmapping.c.swp differ
