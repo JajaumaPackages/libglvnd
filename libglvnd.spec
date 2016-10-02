@@ -21,6 +21,7 @@ Source1:        LICENSE.libglvnd
 Source2:        glvnd-x86_64.conf
 Patch0:         libglvnd-fix-addr-may-be-used-unintialized.patch
 
+BuildRequires:  python
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xext)
 BuildRequires:  pkgconfig(glproto)
