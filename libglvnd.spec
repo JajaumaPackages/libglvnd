@@ -7,7 +7,7 @@
 
 Name:           libglvnd
 Version:        %{vermagic}
-Release:        2%{snapshot}%{?dist}
+Release:        3%{snapshot}%{?dist}
 Summary:        The GL Vendor-Neutral Dispatch library
 
 License:        BSD
@@ -102,6 +102,9 @@ install -D -p -m644 %{SOURCE2} %{buildroot}/etc/ld.so.conf.d/glvnd-x86_64.conf
 # Is everything ok with the upstream pc-file from the beginning?
 mv %{buildroot}%{_libdir}/glvnd/pkgconfig %{buildroot}%{_libdir}
 
+# Add vendor configuration directories
+install -d %{buildroot}%{_sysconfdir}/glvnd/egl_vendor.d
+install -d %{buildroot}%{_datadir}/glvnd/egl_vendor.d
 
 %post -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
@@ -126,6 +129,10 @@ mv %{buildroot}%{_libdir}/glvnd/pkgconfig %{buildroot}%{_libdir}
 %doc README.md
 %license LICENSE.libglvnd
 /etc/ld.so.conf.d/*.conf
+%dir %{_sysconfdir}/glvnd/
+%dir %{_sysconfdir}/glvnd/egl_vendor.d/
+%dir %{_datadir}/glvnd/
+%dir %{_datadir}/glvnd/egl_vendor.d
 %{_libdir}/glvnd/libGLdispatch.so.*
 
 %files -n glvnd-libGL
@@ -150,6 +157,9 @@ mv %{buildroot}%{_libdir}/glvnd/pkgconfig %{buildroot}%{_libdir}
 
 
 %changelog
+* Mon Nov 21 2016 Jajauma's Packages <jajauma@yandex.ru> - 0.2.999-3.git20161121.522c601
+- Add vendor configuration directories
+
 * Mon Nov 21 2016 Jajauma's Packages <jajauma@yandex.ru> - 0.2.999-2.git20161121.522c601
 - Update source to 522c601
 - Drop libglvnd-fix-addr-may-be-used-unintialized.patch (fixed upstream)
