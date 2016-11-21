@@ -1,13 +1,13 @@
-%global commit 14f6283
+%global commit 522c601
 %global vermagic 0.2.999
-%global snapshot .git20161002.%{commit}
+%global snapshot .git20161121.%{commit}
 
 %global __provides_exclude ^(libGL[.]so|libOpenGL[.]so|libEGL[.]so|libGLESv1_CM[.]so|libGLESv2[.]so|libGLX[.]so).*$
 %global __requires_exclude ^(libGL[.]so|libOpenGL[.]so|libEGL[.]so|libGLESv1_CM[.]so|libGLESv2[.]so|libGLX[.]so).*$
 
 Name:           libglvnd
 Version:        %{vermagic}
-Release:        1%{snapshot}%{?dist}
+Release:        2%{snapshot}%{?dist}
 Summary:        The GL Vendor-Neutral Dispatch library
 
 License:        BSD
@@ -19,7 +19,6 @@ URL:            https://github.com/NVIDIA/libglvnd
 Source0:        libglvnd-%{version}.tar.gz
 Source1:        LICENSE.libglvnd
 Source2:        glvnd-x86_64.conf
-Patch0:         libglvnd-fix-addr-may-be-used-unintialized.patch
 
 BuildRequires:  python
 BuildRequires:  pkgconfig(x11)
@@ -79,7 +78,6 @@ Summary:        GLVND libGLX runtime library
 
 %prep
 %setup -q
-%patch0 -p1
 
 # license text extracted from README.md
 cp %{SOURCE1} .
@@ -152,5 +150,9 @@ mv %{buildroot}%{_libdir}/glvnd/pkgconfig %{buildroot}%{_libdir}
 
 
 %changelog
-* Sun Oct 02 2016 Jajauma's Packages <jajauma@yandex.ru> - 0.2.999-1.git20161002.14f6283}
+* Mon Nov 21 2016 Jajauma's Packages <jajauma@yandex.ru> - 0.2.999-2.git20161121.522c601
+- Update source to 522c601
+- Drop libglvnd-fix-addr-may-be-used-unintialized.patch (fixed upstream)
+
+* Sun Oct 02 2016 Jajauma's Packages <jajauma@yandex.ru> - 0.2.999-1.git20161002.14f6283
 - Public release
