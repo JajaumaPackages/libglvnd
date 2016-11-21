@@ -7,7 +7,7 @@
 
 Name:           libglvnd
 Version:        %{vermagic}
-Release:        3%{snapshot}%{?dist}
+Release:        4%{snapshot}%{?dist}
 Summary:        The GL Vendor-Neutral Dispatch library
 
 License:        BSD
@@ -130,9 +130,7 @@ install -d %{buildroot}%{_datadir}/glvnd/egl_vendor.d
 %license LICENSE.libglvnd
 /etc/ld.so.conf.d/*.conf
 %dir %{_sysconfdir}/glvnd/
-%dir %{_sysconfdir}/glvnd/egl_vendor.d/
 %dir %{_datadir}/glvnd/
-%dir %{_datadir}/glvnd/egl_vendor.d
 %{_libdir}/glvnd/libGLdispatch.so.*
 
 %files -n glvnd-libGL
@@ -142,6 +140,8 @@ install -d %{buildroot}%{_datadir}/glvnd/egl_vendor.d
 %{_libdir}/glvnd/libOpenGL.so.*
 
 %files -n glvnd-libEGL
+%dir %{_sysconfdir}/glvnd/egl_vendor.d/
+%dir %{_datadir}/glvnd/egl_vendor.d
 %{_libdir}/glvnd/libEGL.so.*
 
 %files -n glvnd-libGLES
@@ -157,6 +157,9 @@ install -d %{buildroot}%{_datadir}/glvnd/egl_vendor.d
 
 
 %changelog
+* Mon Nov 21 2016 Jajauma's Packages <jajauma@yandex.ru> - 0.2.999-4.git20161121.522c601
+- Move egl_vendor.d subdirectories to glvnd-libEGL subpackage
+
 * Mon Nov 21 2016 Jajauma's Packages <jajauma@yandex.ru> - 0.2.999-3.git20161121.522c601
 - Add vendor configuration directories
 
