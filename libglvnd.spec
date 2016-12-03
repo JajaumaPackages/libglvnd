@@ -1,13 +1,13 @@
-%global commit 522c601
+%global commit 9a17198
 %global vermagic 0.2.999
-%global snapshot .git20161121.%{commit}
+%global snapshot .git20161203.%{commit}
 
 %global __provides_exclude ^(libGL[.]so|libOpenGL[.]so|libEGL[.]so|libGLESv1_CM[.]so|libGLESv2[.]so|libGLX[.]so).*$
 %global __requires_exclude ^(libGL[.]so|libOpenGL[.]so|libEGL[.]so|libGLESv1_CM[.]so|libGLESv2[.]so|libGLX[.]so).*$
 
 Name:           libglvnd
 Version:        %{vermagic}
-Release:        4%{snapshot}%{?dist}
+Release:        5%{snapshot}%{?dist}
 Summary:        The GL Vendor-Neutral Dispatch library
 
 License:        BSD
@@ -18,7 +18,6 @@ URL:            https://github.com/NVIDIA/libglvnd
 # ./autogen.sh && ./configure && make dist
 Source0:        libglvnd-%{version}.tar.gz
 Source1:        LICENSE.libglvnd
-Source2:        glvnd-x86_64.conf
 
 BuildRequires:  python
 BuildRequires:  pkgconfig(x11)
@@ -97,7 +96,8 @@ rm -rf %{buildroot}
 find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 # ld.so search path
-install -D -p -m644 %{SOURCE2} %{buildroot}/etc/ld.so.conf.d/glvnd-x86_64.conf
+install -d %{buildroot}/etc/ld.so.conf.d
+echo "%{_libdir}/glvnd" > %{buildroot}/etc/ld.so.conf.d/glvnd-%{_arch}.conf
 
 # Is everything ok with the upstream pc-file from the beginning?
 mv %{buildroot}%{_libdir}/glvnd/pkgconfig %{buildroot}%{_libdir}
@@ -128,7 +128,7 @@ install -d %{buildroot}%{_datadir}/glvnd/egl_vendor.d
 %files
 %doc README.md
 %license LICENSE.libglvnd
-/etc/ld.so.conf.d/*.conf
+/etc/ld.so.conf.d/glvnd-%{_arch}.conf
 %dir %{_sysconfdir}/glvnd/
 %dir %{_datadir}/glvnd/
 %{_libdir}/glvnd/libGLdispatch.so.*
@@ -157,6 +157,10 @@ install -d %{buildroot}%{_datadir}/glvnd/egl_vendor.d
 
 
 %changelog
+* Sat Dec 03 2016 Jajauma's Packages <jajauma@yandex.ru> - 0.2.999-5.git20161203.9a17198
+- Update source to 9a17198
+- Rebuilt for altarch
+
 * Mon Nov 21 2016 Jajauma's Packages <jajauma@yandex.ru> - 0.2.999-4.git20161121.522c601
 - Move egl_vendor.d subdirectories to glvnd-libEGL subpackage
 
